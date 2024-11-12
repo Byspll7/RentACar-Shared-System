@@ -1,0 +1,75 @@
+﻿@using Layout.ViewModels
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@model List<ProductViewModel>
+<h1>Products</h1>
+
+@if (TempData != null)
+{
+    <div class="alert alert-primary" role="alert">
+        @TempData["status"]
+    </div>
+     
+    
+}
+
+<a asp-controller="product" asp-action="add">Add Product</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Color</th>
+            <th>Is Publish?</th>
+            <th>Duration</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+        
+        
+
+       
+    
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Stock</td>
+                <td>@item.Color</td>
+                <td>
+                    @(item.IsPublish ? "Yes":"No")
+                </td>
+                <td>@item.Expire</td>
+                <td>@if(@item.Description.Length>20)
+                    {
+                        @item.Description.Substring(0,20)<text>...</text>
+                    }
+                    else
+                    {
+                       @item.Description 
+                    }
+
+                  
+                    
+                </td>
+                <td><a asp-controller="product" asp-action="remove" asp-route-id="@item.Id">Remove</a>
+                    <a asp-controller="product" asp-action="update" asp-route-id="@item.Id">Update</a>
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+    
+</table>
+
+

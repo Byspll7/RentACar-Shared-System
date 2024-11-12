@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+
+@model ProductViewModel
+
+<h1>Add Product</h1>
+
+<form asp-controller="Product" asp-action="Add" method="post">
+
+    
+    <div class="mb-3">
+       <label for="Name" class="form-label">Product Name :</label>
+         <input class="form-control" asp-for="Name">
+         <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Product Price :</label>
+        <input class="form-control" asp-for="Price">
+        <span class="text-danger" asp-validation-for="Price"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Product Stock :</label>
+        <input class="form-control" asp-for="Stock">
+        <span class="text-danger" asp-validation-for="Stock"></span>
+    </div>
+    <div class="mb-3">
+      
+        <select class="form-select" asp-for="Color" asp-items="@ViewBag.ColorSelect">
+            <option value="">Select Color</option>
+        </select>
+        <span class="text-danger" asp-validation-for="Color"></span>
+       
+    </div
+
+    
+    
+
+    <div class="form-check">
+  <input class="form-check-input" asp-for="IsPublish">
+  <label class="form-check-label" for="flexCheckDefault">
+    Is it publish?
+  </label>
+ 
+@foreach (var item in ViewBag.Expire as Dictionary<string,int>)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Expire" value="@item.Value">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    @item.Key
+                </label>
+            </div>
+        }
+        <span class="text-danger" asp-validation-for="Expire"></span>
+
+      <div>
+       <div class="form-floating mb3">
+      <textarea asp-for="Description " class="form-control" placeholder="Product Description" id="floatingTextarea2" style="height: 100px"></textarea>
+         <label asp-for="Description">Product Description</label>
+         <span class="text-danger" asp-validation-for="Description"></span>
+   
+     </div>
+  
+</div>
+
+<br />
+@*Publish Date*@
+    <div class="mb-3">
+       <label for="PublishDate" class="form-label">Published in :</label>
+         <input class="form-control" asp-for="PublishDate">
+         <span class="text-danger" asp-validation-for="PublishDate "></span>
+    </div>
+
+   <button class="btn btn-primary"  type="submit">Save</button>
+
+
+</form>
+
+         @section Scripts
+         {
+             <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+             <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+         }
